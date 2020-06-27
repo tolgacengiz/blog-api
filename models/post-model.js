@@ -11,7 +11,7 @@ const getAllPosts = () => {
 const createPost = ({ title, brief, detailed }) => {
     return (
         pool.query(
-            'INSERT INTO users(name, email) VALUES($1, $2, $3) RETURNING *',
+            'INSERT INTO posts(title, brief, detailed) VALUES($1, $2, $3) RETURNING *',
             [title, brief, detailed]
         )
     )
@@ -20,14 +20,22 @@ const createPost = ({ title, brief, detailed }) => {
 const getPostById = (id) => {
     return (
         pool.query(`
-            SELECT * FROM posts WHERE id='${id}';
+            SELECT * FROM posts WHERE id=${id};
+        `)
+    )
+};
+
+const deletePostById = (id) => {
+    return (
+        pool.query(`
+            DELETE FROM posts WHERE id=${id};
         `)
     )
 };
 
 const updatePostById = (id, { title, brief, detailed } = {}) => {
     if (title || brief || detailed) {
-        let setStatement = 'SET';
+        let setStatement = 'SET ';
 
         if (title) {
             setStatement += `title='${title}', `
@@ -41,12 +49,12 @@ const updatePostById = (id, { title, brief, detailed } = {}) => {
             setStatement += `detailed='${detailed}', `
         }
 
-        setStatement.replace(/,\s$/, '');
+        setStatement = setStatement.replace(/,\s$/, '');
 
         return pool.query(`
             UPDATE posts
             ${setStatement}
-            WHERE id='${id}';
+            WHERE id=${id};
         `)
     }
 };
@@ -56,4 +64,5 @@ module.exports = {
     getPostById,
     updatePostById,
     createPost,
+    deletePostById,
 };

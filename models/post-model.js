@@ -3,7 +3,7 @@ const { pool } = require('./db-connector');
 const getAllPosts = () => {
     return (
         pool.query(`
-            SELECT * FROM posts;
+            SELECT id, title, brief, timestamp FROM posts ORDER BY timestamp;
         `)
     )
 };
@@ -12,7 +12,7 @@ const createPost = ({ title, brief, detailed }) => {
     return (
         pool.query(
             'INSERT INTO posts(title, brief, detailed) VALUES($1, $2, $3) RETURNING *',
-            [title, brief, detailed]
+            [title, brief, detailed, , new Date()]
         )
     )
 };
@@ -53,9 +53,9 @@ const updatePostById = (id, { title, brief, detailed } = {}) => {
 
         return pool.query(`
             UPDATE posts
-            ${setStatement}
+            SET title=$1, brief=$2, detailed=$3
             WHERE id=${id};
-        `)
+        `, [ title, brief, detailed ])
     }
 };
 

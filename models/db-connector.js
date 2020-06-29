@@ -8,4 +8,6 @@ const pool = new pg.Pool({
     port: process.env.DB_PORT,
 });
 
+pool.connect();
+
 module.exports = { pool };

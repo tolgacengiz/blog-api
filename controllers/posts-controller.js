@@ -1,5 +1,8 @@
 const postModel = require('../models/post-model');
 
+// Example
+const idProd = process.env.NODE_ENV === 'production';
+
 const getPosts = async (req, res) => {
     try {
         const posts = await postModel.getAllPosts();
@@ -10,7 +13,7 @@ const getPosts = async (req, res) => {
         });
     } catch (error) {
         res.send({
-            error: error.message,
+            error: idProd ? 'Sorry, internal error occurred' : error.message,
         });
     }
 }

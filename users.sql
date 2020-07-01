@@ -1,4 +1,5 @@
-CREATE TABLE users (
+CREATE TABLE users
+(
    id SERIAL PRIMARY KEY,
    username varchar(255),
    first_name varchar(255),
@@ -6,4 +7,7 @@ CREATE TABLE users (
    password_hash varchar(255)
 );
 
-INSERT INTO users (first_name, last_name, username, password_hash) VALUES ('Admin', '', 'admin', 'yourHashedSaltedPassword');
+INSERT INTO users
+   (first_name, last_name, username, password_hash)
+VALUES
+   ('Admin', '', 'admin', '9a90f73065ba891032b666284eafa6d9');

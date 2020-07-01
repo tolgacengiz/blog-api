@@ -5,11 +5,17 @@ const postsController = require('../controllers/posts-controller');
 const router = express.Router();
 const jwtMiddleware = createJWTMiddleware({ secret: process.env.JWT_SECRET });
 
-router.get('/posts/:id', postsController.getSinglePost);
-router.put('/posts/:id', jwtMiddleware, postsController.updateSinglePost);
-router.delete('/posts/:id', jwtMiddleware, postsController.deleteSinglePost);
-
-router.get('/posts', postsController.getPosts);
+// [C]reate route
 router.post('/posts', jwtMiddleware, postsController.createSinglePost);
+
+// [R]ead route
+router.get('/posts/:id', postsController.getSinglePost);
+router.get('/posts', postsController.getPosts);
+
+// [U]pdate route
+router.put('/posts/:id', jwtMiddleware, postsController.updateSinglePost);
+
+// [D]elete route
+router.delete('/posts/:id', jwtMiddleware, postsController.deleteSinglePost);
 
 module.exports = router;

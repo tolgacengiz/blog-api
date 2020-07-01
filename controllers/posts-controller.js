@@ -33,7 +33,7 @@ const getSinglePost = async (req, res) => {
         });
     } catch (error) {
         res.send({
-            error: error.message,
+            error: idProd ? 'Sorry, internal error occurred' : error.message,
         });
     }
 }
@@ -43,9 +43,9 @@ const deleteSinglePost = async (req, res) => {
 
     try {
         const post = await postModel.getPostById(id);
-        await postModel.deletePostById(id);
 
         if (post.rows.length) {
+            await postModel.deletePostById(id);
             return res.send(post.rows[0]);
         }
 
@@ -54,7 +54,7 @@ const deleteSinglePost = async (req, res) => {
         });
     } catch (error) {
         res.send({
-            error: error.message,
+            error: idProd ? 'Sorry, internal error occurred' : error.message,
         });
     }
 }
@@ -74,7 +74,7 @@ const createSinglePost = async (req, res) => {
         });
     } catch (error) {
         res.send({
-            error: error.message,
+            error: idProd ? 'Sorry, internal error occurred' : error.message,
         });
     }
 }
@@ -96,7 +96,7 @@ const updateSinglePost = async (req, res) => {
         });
     } catch (error) {
         res.send({
-            error: error.message,
+            error: idProd ? 'Sorry, internal error occurred' : error.message,
         });
     }
 }

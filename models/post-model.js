@@ -20,42 +20,26 @@ const createPost = ({ title, brief, detailed }) => {
 const getPostById = (id) => {
     return (
         pool.query(`
-            SELECT * FROM posts WHERE id=${id};
-        `)
+            SELECT * FROM posts WHERE id=$1;
+        `, [ id ])
     )
 };
 
 const deletePostById = (id) => {
     return (
         pool.query(`
-            DELETE FROM posts WHERE id=${id};
-        `)
+            DELETE FROM posts WHERE id=$1;
+        `, [ id ])
     )
 };
 
 const updatePostById = (id, { title, brief, detailed } = {}) => {
     if (title || brief || detailed) {
-        let setStatement = 'SET ';
-
-        if (title) {
-            setStatement += `title='${title}', `
-        }
-
-        if (brief) {
-            setStatement += `brief='${brief}', `
-        }
-
-        if (detailed) {
-            setStatement += `detailed='${detailed}', `
-        }
-
-        setStatement = setStatement.replace(/,\s$/, '');
-
         return pool.query(`
             UPDATE posts
             SET title=$1, brief=$2, detailed=$3
-            WHERE id=${id};
-        `, [ title, brief, detailed ])
+            WHERE id=$4;
+        `, [ title, brief, detailed, id ])
     }
 };
 

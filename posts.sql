@@ -5,6 +5,7 @@ create table posts (
 	detailed TEXT,
 	timestamp DATE
 );
+
 insert into posts (title, brief, detailed, timestamp) values ('Neophron percnopterus', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
 
 Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.
